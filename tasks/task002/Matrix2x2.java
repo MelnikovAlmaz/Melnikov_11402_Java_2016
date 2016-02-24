@@ -1,4 +1,4 @@
-package task001;
+package task002;
 
 /**
  * Created by Almaz on 19.11.2014.
