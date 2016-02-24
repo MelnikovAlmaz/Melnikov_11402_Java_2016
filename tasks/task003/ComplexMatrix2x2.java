@@ -1,8 +1,5 @@
 package task003;
 
-/**
- * Created by Almaz on 19.11.2014.
- */
 public class ComplexMatrix2x2 {
     public ComplexNumber[][] matrix2x2;
 

@@ -1,8 +1,5 @@
 package task002;
 
-/**
- * Created by Almaz on 19.11.2014.
- */
 public class Matrix2x2 {
     public double[][] matrix;
 
