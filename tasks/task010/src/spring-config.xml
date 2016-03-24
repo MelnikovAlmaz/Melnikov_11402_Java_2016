@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+       <bean id="linuxMint" class="component.LinuxMint">
+              <constructor-arg value="17"/>
+              <constructor-arg value="Rafaella"/>
+       </bean>
+       <bean id="redHat" class="component.RedHatLinux">
+              <constructor-arg value="5"/>
+              <constructor-arg value="HatRed"/>
+       </bean>
+       <bean id="windows" class="component.Windows">
+              <constructor-arg value="10"/>
+              <constructor-arg value="Windows X"/>
+       </bean>
+       <bean id="cdr" class="component.CdR">
+       </bean>
+       <bean id="dvdrw" class="component.DvdRw">
+       </bean>
+       <bean id="stationarwireless" class="component.StationarWireLess" >
+              <constructor-arg ref="windows" />
+              <constructor-arg value="DNS + wifi"/>
+       </bean>
+       <bean id="laptop" class="component.Laptop">
+              <constructor-arg ref="linuxMint" />
+              <constructor-arg value="Asus v5"/>
+       </bean>
+</beans>
