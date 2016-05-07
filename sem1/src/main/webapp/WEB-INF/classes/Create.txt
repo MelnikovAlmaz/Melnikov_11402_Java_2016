@@ -1,0 +1,191 @@
+-- Table: book_template
+
+-- DROP TABLE book_template;
+
+CREATE TABLE book_template
+(
+  id integer NOT NULL,
+  fromblock integer,
+  fromhouse character varying(255),
+  fromplace character varying(255),
+  fromstreet character varying(255),
+  name character varying(255),
+  phone character varying(255),
+  state integer,
+  tohouse character varying(255),
+  tostreet character varying(255),
+  city integer,
+  passenger integer,
+  CONSTRAINT book_template_pkey PRIMARY KEY (id),
+  CONSTRAINT fk_1uwlk5enhphfm2v4mfjy93q7r FOREIGN KEY (city)
+      REFERENCES city (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fk_og4lksxv98driuo77vocbbyce FOREIGN KEY (passenger)
+      REFERENCES passenger (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE book_template
+  OWNER TO postgres;
+
+-- Table: book
+
+-- DROP TABLE book;
+
+CREATE TABLE book
+(
+  id integer NOT NULL,
+  cost integer NOT NULL DEFAULT 0,
+  date timestamp without time zone NOT NULL DEFAULT now(),
+  fromblock integer,
+  fromhouse character varying(255),
+  fromplace character varying(255),
+  fromstreet character varying(255),
+  state integer NOT NULL DEFAULT 0,
+  name character varying(255),
+  phone character varying(255),
+  tohouse character varying(255),
+  tostreet character varying(255),
+  city integer NOT NULL,
+  driver integer,
+  passenger integer NOT NULL,
+  CONSTRAINT book_pkey PRIMARY KEY (id),
+  CONSTRAINT fk_8pyyenm5qxn0oidd2ks9his8n FOREIGN KEY (city)
+      REFERENCES city (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fk_mc1x5w5ky4loygvpfjogusp6l FOREIGN KEY (passenger)
+      REFERENCES passenger (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fk_mpnel8hrtgga36tsd8x4tpcnb FOREIGN KEY (driver)
+      REFERENCES driver (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE book
+  OWNER TO postgres;
+
+-- Table: car
+
+-- DROP TABLE car;
+
+CREATE TABLE car
+(
+  id integer NOT NULL,
+  color character varying(255),
+  model character varying(255),
+  "number" character varying(255),
+  region integer,
+  CONSTRAINT car_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE car
+  OWNER TO postgres;
+
+-- Table: city
+
+-- DROP TABLE city;
+
+CREATE TABLE city
+(
+  id serial NOT NULL,
+  name character varying(100),
+  CONSTRAINT city_pkey PRIMARY KEY (id),
+  CONSTRAINT uk_qsstlki7ni5ovaariyy9u8y79 UNIQUE (name)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE city
+  OWNER TO postgres;
+
+-- Table: driver
+
+-- DROP TABLE driver;
+
+CREATE TABLE driver
+(
+  id integer NOT NULL,
+  flat integer,
+  house character varying(255),
+  name character varying(255),
+  phone character varying(255),
+  role character varying(100) NOT NULL DEFAULT 'ROLE_DRIVER'::character varying,
+  street character varying(255),
+  car integer,
+  city integer,
+  enabled integer,
+  password character varying(255) NOT NULL,
+  sex integer,
+  username character varying(255) NOT NULL,
+  CONSTRAINT driver_pkey PRIMARY KEY (id),
+  CONSTRAINT fk_4i1g76r0qrqgxku682etkqhl6 FOREIGN KEY (car)
+      REFERENCES car (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fk_ofy2rt5owwdmn2nkoo551j65f FOREIGN KEY (city)
+      REFERENCES city (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE driver
+  OWNER TO postgres;
+
+-- Table: feedback
+
+-- DROP TABLE feedback;
+
+CREATE TABLE feedback
+(
+  id integer NOT NULL,
+  additional character varying(255),
+  date date,
+  phone character varying(255),
+  subject character varying(255),
+  city integer,
+  CONSTRAINT feedback_pkey PRIMARY KEY (id),
+  CONSTRAINT fk_iqwhr2csswlct8eau5srk28fc FOREIGN KEY (city)
+      REFERENCES city (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE feedback
+  OWNER TO postgres;
+
+-- Table: passenger
+
+-- DROP TABLE passenger;
+
+CREATE TABLE passenger
+(
+  id serial NOT NULL,
+  flat integer,
+  house character varying(255),
+  name character varying(255),
+  password character varying(255),
+  phone character varying(255),
+  role character varying(100) NOT NULL DEFAULT 'ROLE_PASSENGER'::character varying,
+  sex integer,
+  street character varying(255),
+  username character varying(255),
+  city integer,
+  enabled integer NOT NULL DEFAULT 1,
+  CONSTRAINT passenger_pkey PRIMARY KEY (id),
+  CONSTRAINT fk_ovax5t38i0hynk7ieam74m8g9 FOREIGN KEY (city)
+      REFERENCES city (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE passenger
+  OWNER TO postgres;
+
