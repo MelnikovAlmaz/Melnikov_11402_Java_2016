@@ -2,6 +2,7 @@ package service;
 
 import entity.City;
 import entity.Passenger;
+import form.RegistrationForm;
 
 import java.util.List;
 
@@ -13,6 +14,6 @@ public interface PassengerService {
     Passenger getPassengerById(Integer id);
     Passenger getPassengerByUsername(String username);
     List<Passenger> getAllPassenger();
-    Passenger addNewPassenger(String username, int cityId, String phone, String password);
+    Passenger addNewPassenger(RegistrationForm form);
     void update(Passenger passenger, String name, String street, String house, int flat, int sex, City city);
 }

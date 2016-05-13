@@ -5,6 +5,7 @@ import entity.City;
 import entity.Driver;
 import entity.Person;
 import form.MainBookForm;
+import form.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -122,23 +123,22 @@ public class MainPageController {
     public String registerClientGET(ModelMap model) {
         List cities = cityService.getAllCities();
         model.addAttribute("cities", cities);
+        model.addAttribute("form", new RegistrationForm());
         return "/cabinet/register_client";
     }
 
     @RequestMapping(value = "/register/client", method = RequestMethod.POST)
-    public String registerClientPOST(ModelMap model,
-                                     @RequestParam(value = "username") String username,
-                                     @RequestParam(value = "city") int cityId,
-                                     @RequestParam(value = "phone") String phone,
-                                     @RequestParam(value = "password") String password,
-                                     @RequestParam(value = "confirmPassword") String confirmPassword) {
+    public String registerClientPOST(ModelMap model, @ModelAttribute("form") @Valid RegistrationForm form, BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/register/client";
+        }
         boolean isError = false;
         String errorMessage = "";
-        if (passengerService.getPassengerByUsername(username) != null) {
+        if (passengerService.getPassengerByUsername(form.getUsername()) != null) {
             isError = true;
             errorMessage += "Логин уже используется ";
         }
-        if (!password.equals(confirmPassword)) {
+        if (!form.getPassword().equals(form.getConfirmPassword())) {
             isError = true;
             errorMessage += "Порторный ввод пароля неверен";
         }
@@ -146,12 +146,9 @@ public class MainPageController {
             List cities = cityService.getAllCities();
             model.addAttribute("error", errorMessage);
             model.addAttribute("cities", cities);
-            model.addAttribute("username", username);
-            model.addAttribute("cityError", cityId);
-            model.addAttribute("phone", phone);
             return "/cabinet/register_client";
         }
-        passengerService.addNewPassenger(username, cityId, phone, password);
+        passengerService.addNewPassenger(form);
         return "redirect:/login";
     }
 

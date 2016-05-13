@@ -4,6 +4,7 @@ import entity.City;
 import entity.Passenger;
 import entity.enums.Role;
 import entity.enums.Sex;
+import form.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,12 +43,12 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public Passenger addNewPassenger(String username, int cityId, String phone, String password) {
+    public Passenger addNewPassenger(RegistrationForm form) {
         Passenger passenger = new Passenger();
-        passenger.setUsername(username);
-        passenger.setCity(cityRepository.findOneById(cityId));
-        passenger.setPassword(password);
-        passenger.setPhone(phone);
+        passenger.setUsername(form.getUsername());
+        passenger.setCity(cityRepository.findOneById(form.getCity()));
+        passenger.setPassword(form.getPassword());
+        passenger.setPhone(form.getPhone());
         passenger.setRole(Role.ROLE_PASSENGER);
         passenger.setEnabled(1);
         passenger.setSex(Sex.MALE);
