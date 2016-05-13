@@ -127,7 +127,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getAllBooksByNameAndPassenger(String name, Passenger passenger) {
-        return bookRep.findAllWhereNameStartsWithByPassengerId(name, passenger.getId());
+        try {
+            return bookRep.findAllWhereNameStartsWithByPassengerId(name, passenger.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
-
 }

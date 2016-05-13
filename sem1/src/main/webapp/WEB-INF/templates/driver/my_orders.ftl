@@ -39,7 +39,6 @@
                         <div id="currentDataset" class="grid-view"></div>
                         <div class="row-fluid">
                             <div class="span9">
-                                <span class="label" style="margin-bottom: 10px">История отображается за последние 3 месяца</span>
                                 <table class="table table-striped">
                                     <tr>
                                         <th>Название</th>
@@ -65,9 +64,6 @@
                                     </tr>
                                 </#list>
                                 </table>
-                            </div>
-                            <div class="span3 text-right">
-                                <a class="btn btn-success" href="/driver/cabinet/statistic/export">Выгрузить реестр поездок</a>
                             </div>
                         </div>
                     </div>
