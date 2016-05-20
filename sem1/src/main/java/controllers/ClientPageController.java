@@ -83,8 +83,8 @@ public class ClientPageController {
     }
 
     @RequestMapping(value = "/cabinet/orders/find", method = RequestMethod.GET)
-    public @ResponseBody
-    List<Book> countInMonth(@RequestParam(value = "name") String name) {
+    @ResponseBody
+    public List<Book> countInMonth(@RequestParam(value = "name") String name) {
         Passenger passenger = getPrincipal();
         if(!name.equals("")){
             List<Book> books = bookService.getAllBooksByNameAndPassenger(name, passenger);
