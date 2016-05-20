@@ -1,21 +1,21 @@
 package sample;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -100,6 +100,7 @@ public class Main extends Application
                             if (response == ButtonType.OK) {
                                 try {
                                     theScene.setRoot(FXMLLoader.load(getClass().getResource("game.fxml")));
+                                    setTransitions(theScene.getRoot());
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -126,6 +127,7 @@ public class Main extends Application
                         user.setFill(Paint.valueOf("#000000"));
                         theScene.getRoot().lookup("#shape").setLayoutX(-1);
                         theScene.getRoot().lookup("#shape").setLayoutY(-1);
+                        setBorderTransitions(theScene.getRoot().lookup("#border"));
                     }
                     if (user.getBoundsInParent().intersects(theScene.getRoot().lookup("#change").getBoundsInParent())){
                         Random random = new Random();
@@ -148,6 +150,45 @@ public class Main extends Application
                 }
             }
         });
+        setTransitions(theScene.getRoot());
         theStage.show();
+    }
+
+    private void setTransitions(Parent root){
+        setFadeTransitions(root.lookup("#small"));
+        setFadeTransitions(root.lookup("#speed"));
+        setFadeTransitions(root.lookup("#shape"));
+
+        setPathTransitions(root.lookup("#big_block_1"));
+        setPathTransitions(root.lookup("#big_block_2"));
+        setPathTransitions(root.lookup("#big_block_3"));
+    }
+    private void setFadeTransitions(Node node){
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), node);
+        ft.setFromValue(1.0);
+        ft.setToValue(0.3);
+        ft.setCycleCount(Timeline.INDEFINITE);
+        ft.setAutoReverse(true);
+        ft.play();
+    }
+    private void setPathTransitions(Node node){
+        final Timeline timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.setAutoReverse(true);
+        final KeyValue kv = new KeyValue(((Rectangle)node).xProperty(), -95);
+        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.play();
+    }
+    private void setBorderTransitions(Node node){
+        final Timeline timeline = new Timeline();
+        timeline.setCycleCount(1);
+        final KeyValue kv = new KeyValue(((Rectangle)node).yProperty(), -40);
+        final KeyFrame kf = new KeyFrame(Duration.millis(1000), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.play();
+    }
+    private void setTexture(Parent root){
+        ((Rectangle)root.lookup("#big_block_1")).setFill(new ImagePattern(new Image(getClass().getResource("ship.bmp").toString(), 0, 0, true, true, true)));
     }
 }
