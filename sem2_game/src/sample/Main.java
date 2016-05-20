@@ -1,5 +1,8 @@
 package sample;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -12,10 +15,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 // Collect the Money Bags!
 public class Main extends Application
@@ -120,6 +126,24 @@ public class Main extends Application
                         user.setFill(Paint.valueOf("#000000"));
                         theScene.getRoot().lookup("#shape").setLayoutX(-1);
                         theScene.getRoot().lookup("#shape").setLayoutY(-1);
+                    }
+                    if (user.getBoundsInParent().intersects(theScene.getRoot().lookup("#change").getBoundsInParent())){
+                        Random random = new Random();
+                        theScene.getRoot().lookup("#change").setLayoutX(random.nextDouble()*theStage.getWidth());
+                        theScene.getRoot().lookup("#change").setLayoutY( random.nextDouble()*theStage.getHeight());
+                        int vector = 1;
+                        for (Node wall: walls) {
+                            final Timeline timeline = new Timeline();
+                            timeline.setCycleCount(1);
+                            final KeyValue kv = new KeyValue(((Rectangle)wall).yProperty(), random.nextDouble()*theStage.getHeight()*vector/10);
+                            final KeyFrame kf = new KeyFrame(Duration.millis(10000), kv);
+                            final KeyValue kvx = new KeyValue(((Rectangle)wall).xProperty(),random.nextDouble()*theStage.getWidth()*vector/10);
+                            final KeyFrame kfx = new KeyFrame(Duration.millis(10000), kvx);
+                            timeline.getKeyFrames().add(kf);
+                            timeline.getKeyFrames().add(kfx);
+                            timeline.play();
+                        }
+                        vector*=-1;
                     }
                 }
             }
