@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -103,6 +104,22 @@ public class Main extends Application
                             }
                         });
                         break;
+                    }
+                    if (user.getBoundsInParent().intersects(theScene.getRoot().lookup("#small").getBoundsInParent())){
+                        user.setScaleX(user.getScaleX()/2);
+                        user.setScaleY(user.getScaleY()/2);
+                        theScene.getRoot().lookup("#small").setLayoutX(-1);
+                        theScene.getRoot().lookup("#small").setLayoutY(-1);
+                    }
+                    if (user.getBoundsInParent().intersects(theScene.getRoot().lookup("#speed").getBoundsInParent())){
+                        speed.setValue(speed.getValue() * 2);
+                        theScene.getRoot().lookup("#speed").setLayoutX(-1);
+                        theScene.getRoot().lookup("#speed").setLayoutY(-1);
+                    }
+                    if (user.getBoundsInParent().intersects(theScene.getRoot().lookup("#shape").getBoundsInParent())){
+                        user.setFill(Paint.valueOf("#000000"));
+                        theScene.getRoot().lookup("#shape").setLayoutX(-1);
+                        theScene.getRoot().lookup("#shape").setLayoutY(-1);
                     }
                 }
             }
