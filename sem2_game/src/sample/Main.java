@@ -1,9 +1,11 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -12,10 +14,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 // Collect the Money Bags!
-public class Main extends Application
-{
-    public static void main(String[] args)
-    {
+public class Main extends Application {
+    public static void main(String[] args) {
         launch(args);
     }
 
@@ -40,6 +40,51 @@ public class Main extends Application
         Circle user = (Circle) theScene.getRoot().lookup("#user");
         Node finish = theScene.getRoot().lookup("#finish");
         Int speed = new Int(5);
+        user.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                for (int i = 0; i < speed.getValue(); i++) {
+                    switch (event.getCode()) {
+                        case W:
+                            user.setLayoutY(user.getLayoutY() - 1);
+                            for (Node wall : walls) {
+                                if (user.getBoundsInParent().intersects(wall.getBoundsInParent())) {
+                                    user.setLayoutY(user.getLayoutY() + 1);
+                                    break;
+                                }
+                            }
+                            break;
+                        case S:
+                            user.setLayoutY(user.getLayoutY() + 1);
+                            for (Node wall : walls) {
+                                if (user.getBoundsInParent().intersects(wall.getBoundsInParent())) {
+                                    user.setLayoutY(user.getLayoutY() - 1);
+                                    break;
+                                }
+                            }
+                            break;
+                        case A:
+                            user.setLayoutX(user.getLayoutX() - 1);
+                            for (Node wall : walls) {
+                                if (user.getBoundsInParent().intersects(wall.getBoundsInParent())) {
+                                    user.setLayoutX(user.getLayoutX() + 1);
+                                    break;
+                                }
+                            }
+                            break;
+                        case D:
+                            user.setLayoutX(user.getLayoutX() + 1);
+                            for (Node wall : walls) {
+                                if (user.getBoundsInParent().intersects(wall.getBoundsInParent())) {
+                                    user.setLayoutX(user.getLayoutX() - 1);
+                                    break;
+                                }
+                            }
+                            break;
+                    }
+                }
+            }
+        });
         theStage.show();
     }
 }
