@@ -154,7 +154,7 @@ public class ClientPageController {
                               @RequestParam(value = "flat") int flat,
                               @RequestParam(value = "sex") int sex) {
 
-        City city = cityService.getCityById(Integer.parseInt(cityId.charAt(1)+""));
+        City city = cityService.getCityById(Integer.parseInt(cityId.substring(1)));
         Passenger passenger = getPrincipal();
         passengerService.update(passenger, name, street, house, flat, sex, city);
         return "redirect:/client/cabinet/profile";
