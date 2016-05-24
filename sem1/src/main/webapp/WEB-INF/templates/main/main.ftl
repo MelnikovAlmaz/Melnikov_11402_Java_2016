@@ -104,7 +104,6 @@
                     </div>
                 </div>
             </div>
-            <!--input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/-->
             <div class="form-actions">
                 <input class="btn btn-success" type="submit" value="Отправить заказ">
             </div>
