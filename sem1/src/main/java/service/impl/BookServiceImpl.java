@@ -72,6 +72,10 @@ public class BookServiceImpl implements BookService {
         bookRepository.save(book);
     }
 
+    public Book addNewBook(Book book){
+        return bookRepository.save(book);
+    }
+
     @Override
     public void addNewMainBook(MainBookForm form) {
         Passenger passenger = passengerRepository.findOneByUsername(form.getUsername());

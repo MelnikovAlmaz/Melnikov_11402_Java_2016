@@ -1,6 +1,5 @@
 package service;
 
-import entity.City;
 import entity.Passenger;
 import form.RegistrationForm;
 
@@ -15,5 +14,5 @@ public interface PassengerService {
     Passenger getPassengerByUsername(String username);
     List<Passenger> getAllPassenger();
     Passenger addNewPassenger(RegistrationForm form);
-    void update(Passenger passenger, String name, String street, String house, int flat, int sex, City city);
+    void update(Passenger passenger);
 }

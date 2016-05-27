@@ -1,6 +1,5 @@
 package service.impl;
 
-import entity.City;
 import entity.Passenger;
 import entity.enums.Role;
 import entity.enums.Sex;
@@ -60,13 +59,7 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public void update(Passenger passenger, String name, String street, String house, int flat, int sex, City city) {
-        passenger.setName(name);
-        passenger.setStreet(street);
-        passenger.setHouse(house);
-        passenger.setFlat(flat);
-        passenger.setSex(Sex.values()[sex]);
-        passenger.setCity(city);
+    public void update(Passenger passenger) {
         passengerRepository.save(passenger);
     }
 }

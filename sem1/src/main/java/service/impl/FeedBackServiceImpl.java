@@ -40,4 +40,9 @@ public class FeedBackServiceImpl implements FeedBackService{
     public List<Feedback> getAllFeedBack() {
         return feedBackRepository.findAll();
     }
+
+    @Override
+    public void addNewFeedBack(Feedback feedback) {
+        feedBackRepository.save(feedback);
+    }
 }

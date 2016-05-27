@@ -13,4 +13,5 @@ public interface FeedBackService {
     Feedback getFeedBackById(Integer id);
     Feedback addNewFeedBack(FeedbackForm feedbackForm);
     List<Feedback> getAllFeedBack();
+    void addNewFeedBack(Feedback feedback);
 }

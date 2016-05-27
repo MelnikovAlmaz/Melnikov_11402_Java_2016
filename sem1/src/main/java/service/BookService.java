@@ -16,7 +16,7 @@ public interface BookService {
     List<Book> getAllBooks();
     List<Book> getAllBooksByPassengerId(Integer id);
     void addNewBook(BookForm form, Passenger passenger);
-
+    Book addNewBook(Book book);
     void addNewMainBook(MainBookForm form);
 
     Book orderBook(int bookId, int driverId);
