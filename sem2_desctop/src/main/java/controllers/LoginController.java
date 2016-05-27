@@ -14,9 +14,9 @@ import web.ServerApi;
 @Configurable
 public class LoginController{
     @Autowired
-    public GameEnvironment gameEnvironment;
+    private GameEnvironment gameEnvironment;
     @Autowired
-    public ServerApi serverApi;
+    private ServerApi serverApi;
 
     @FXML
     Label error_fld;
