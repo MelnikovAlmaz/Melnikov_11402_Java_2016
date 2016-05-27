@@ -1,11 +1,12 @@
 package entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Created by Almaz on 15.04.2016.
  */
-public class Book {
+public class Book implements Serializable{
     private int id;
     private String tostreet;
     private String tohouse;

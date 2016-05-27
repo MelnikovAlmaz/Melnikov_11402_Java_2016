@@ -4,10 +4,12 @@ import controllers.LoginController;
 import environment.GameEnvironment;
 import environment.SpringFXMLLoader;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import web.impl.ServerApiImpl;
 
 @Configuration
+@ComponentScan(basePackages = {"controllers", "models",})
 public class GameConfiguration {
     @Bean
     GameEnvironment gameEnvironment(){

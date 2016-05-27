@@ -30,34 +30,21 @@ package models;
 import entity.Book;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import web.ServerApi;
 
-import java.util.Collections;
-
+@Component
 public class BookModel {
-    public BookModel(int id) {
-        restTemplate = new RestTemplate();
-        restTemplate.setMessageConverters(Collections.<HttpMessageConverter<?>>singletonList(new MappingJacksonHttpMessageConverter()));
-        loadData(id);
-    }
+    @Autowired
+    private ServerApi serverApi;
 
-    private Book[] books;
-
-    public ObservableList<BookRow> getBooks(int id) {
-        loadData(id);
+    public ObservableList<BookRow> getBooks(int passengerId) {
+        Book[] books = serverApi.bookList(passengerId);
         ObservableList<BookRow> bookRows = FXCollections.observableArrayList();
         for (Book book : books) {
             bookRows.add(new BookRow(book));
         }
         return bookRows;
-    }
-
-    private RestTemplate restTemplate;
-
-    @SuppressWarnings("unchecked")
-    private void loadData(int id) {
-        //books = restTemplate.getForObject("http://localhost:8080/api/books/" + id, Book[].class);
     }
 }

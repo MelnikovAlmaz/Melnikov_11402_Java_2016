@@ -30,33 +30,21 @@ package models;
 import entity.City;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import web.ServerApi;
 
-import java.util.Collections;
-
+@Component
 public class CityModel {
-    public CityModel() {
-        restTemplate = new RestTemplate();
-        restTemplate.setMessageConverters(Collections.<HttpMessageConverter<?>>singletonList(new MappingJacksonHttpMessageConverter()));
-        loadData();
-    }
+    @Autowired
+    private ServerApi serverApi;
 
-    private City[] citys;
-
-    public ObservableList<String> getCitys() {
+    public ObservableList<String> getCityNames() {
+        City[] cityList = serverApi.cityList();
         ObservableList<String> cityNames = FXCollections.observableArrayList();
-        for (City city : citys) {
+        for (City city : cityList) {
             cityNames.add(city.getName());
         }
         return cityNames;
-    }
-
-    private RestTemplate restTemplate;
-
-    @SuppressWarnings("unchecked")
-    public void loadData() {
-        citys = restTemplate.getForObject("http://localhost:8080/api/citys", City[].class);
     }
 }
