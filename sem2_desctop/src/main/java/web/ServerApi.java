@@ -10,7 +10,16 @@ public interface ServerApi {
     Driver authorizeDriver(String username, String password);
     City[] cityList();
     Book[] bookList(int passengerId);
+
+    Book[] bookFreeList(int city_id);
+
     void createBook(Book book);
-    void updateProfile(Passenger passenger);
+    void updatePassengerProfile(Passenger passenger);
     void createFeedBack(Feedback feedback);
+
+    Book currentBook(Driver driver);
+
+    void updateCurrentBook(Book book);
+
+    void updateDriverProfile(Driver driver);
 }
