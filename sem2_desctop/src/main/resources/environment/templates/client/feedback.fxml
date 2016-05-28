@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Client.FeedbackController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Client.ClientFeedbackController">
    <children>
       <GridPane prefHeight="480.0" prefWidth="650.0">
         <columnConstraints>
@@ -56,7 +56,7 @@
                   <TextField fx:id="phone_fld" prefHeight="25.0" prefWidth="200.0" />
                   <Label text="Addition" />
                   <TextArea fx:id="addition_ta" prefHeight="128.0" prefWidth="266.0" />
-                  <Button fx:id="send_btn" onAction="#sendFeedBack" mnemonicParsing="false" text="Send" />
+                  <Button fx:id="send_btn" mnemonicParsing="false" onAction="#sendFeedBack" text="Send" />
                </children>
             </VBox>
          </children>
