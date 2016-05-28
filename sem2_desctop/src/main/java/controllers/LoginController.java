@@ -47,6 +47,12 @@ public class LoginController{
         }
         else if(driver_rbtn.isSelected()){
             Driver driver = serverApi.authorizeDriver(username_fld.getText(), password_fld.getText());
+            if (driver == null){
+                error_fld.setText("Enter correct username or password");
+                return;
+            }
+            gameEnvironment.setDriver(driver);
+            gameEnvironment.openPage("driver/current_order");
         }
     }
 }

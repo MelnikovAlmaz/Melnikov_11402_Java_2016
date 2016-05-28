@@ -47,4 +47,13 @@ public class BookModel {
         }
         return bookRows;
     }
+
+    public ObservableList<BookRow> getFreeBooks(int city_Id) {
+        Book[] books = serverApi.bookFreeList(city_Id);
+        ObservableList<BookRow> bookRows = FXCollections.observableArrayList();
+        for (Book book : books) {
+            bookRows.add(new BookRow(book));
+        }
+        return bookRows;
+    }
 }
